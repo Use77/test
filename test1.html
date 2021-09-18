@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <div id="demo">
+        <h1>XMLHttpRequest 对象</h1>
+        <!-- <button type="button" onclick="loadDoc()">修改内容</button> -->
+    </div>
+    <button type="button" onclick="loadDoc()">修改内容</button>
+    <button type="button" onclick='chanCel()'>取消请求</button>
+
+
+    <script>
+        let xhttp = null;
+        let isSending = false;
+        function loadDoc() {
+            if (isSending) xhttp.abort();
+            xhttp = new XMLHttpRequest();
+            isSending = true;
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    isSending = false;
+                }
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "http://127.0.0.1:8088/delay");
+            // xhttp.open("GET", "http://127.0.0.1:8088/ajax_info.txt?t=" + Date.now());
+            xhttp.send();
+        }
+        function chanCel() {
+            xhttp.abort();
+        }
+    </script>
+
+</body>
+
+</html>
