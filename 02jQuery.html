@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap-grid.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <button type="button" class="btn btn-success">get请求</button>
+        <button type="button" class="btn btn-info">post请求</button>
+        <button type="button" class="btn btn-warning">通用方法</button>
+    </div>
+    <script>
+        $('button').eq(0).click(function () {
+            $.get("http://127.0.0.1:8088/jquery-delay", { a: 100, b: 200 }, function (data) {
+                console.log(data);
+            }, 'json')
+        })
+        $('button').eq(1).click(function () {
+            $.post("http://127.0.0.1:8088/jquery-delay", { a: 100, b: 200 }, function (data) {
+                console.log(data);
+            })
+        })
+        $('button').eq(2).click(function () {
+            $.ajax({
+                url: "http://127.0.0.1:8088/jquery-delay",
+                data: { a: 'hahaha', b: 'bdbdbd' },
+                type: 'get',
+                success: function (data) {
+                    console.log('success!');
+                },
+                error: function () {
+                    console.log('出错了！');
+                },
+                timeout: 3000,
+            })
+        })
+    </script>
+</body>
+
+</html>
